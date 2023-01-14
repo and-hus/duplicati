@@ -39,7 +39,7 @@ namespace Duplicati.Server.WebServer
         /// <summary>
         /// The default listening port
         /// </summary>
-        public const int DEFAULT_OPTION_PORT = 8200;
+        public const int DEFAULT_OPTION_PORT = 8300;
 
         /// <summary>
         /// Option for setting the webservice SSL certificate

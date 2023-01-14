@@ -5,7 +5,7 @@ using System.Linq;
 using Duplicati.Library.Common;
 using Duplicati.Library.Common.IO;
 using Duplicati.Library.RestAPI;
-using Duplicati.WebserverCore;
+using Duplicati.WebserverWebApi;
 
 namespace Duplicati.Server
 {
@@ -103,7 +103,7 @@ namespace Duplicati.Server
         /// <summary>
         /// Callback to shutdown the modern webserver
         /// </summary>
-        private static Action ShutdownModernWebserver;
+        private static Action ShutdownModernWebserver = () => {};
 
         /// <summary>
         /// The update poll thread.
@@ -347,8 +347,8 @@ namespace Duplicati.Server
             ServerPortChanged |= WebServer.Port != DataConnection.ApplicationSettings.LastWebserverPort;
             DataConnection.ApplicationSettings.LastWebserverPort = WebServer.Port;
 
-            var server = new DuplicatiWebserver();
-            ShutdownModernWebserver = server.Foo();
+            var server = new MyWebServer();
+            ShutdownModernWebserver = server.Start(8200);
         }
 
         private static void SetWorkerThread()
