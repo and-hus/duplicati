@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using System.Reflection;
 
@@ -54,6 +55,12 @@ public class MyWebServer
         builder.WebHost.UseUrls($"http://localhost:{port}");
 
         builder.Services.AddControllers();
+
+        builder.Services.AddApiVersioning(options => {
+            options.ReportApiVersions = true;
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            options.DefaultApiVersion = new ApiVersion(1, 0);
+	    });
 
         var proxyBuilder = builder.Services.AddReverseProxy();
         proxyBuilder.LoadFromConfig(builder.Configuration.GetSection(ConfigSectionName));
